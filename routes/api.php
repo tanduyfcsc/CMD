@@ -1,0 +1,118 @@
+<?php
+
+use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\ChapterController;
+use App\Http\Controllers\API\CommentController;
+use App\Http\Controllers\API\EvaluateController;
+use App\Http\Controllers\API\InvoiceController;
+use App\Http\Controllers\API\LessonController;
+use App\Http\Controllers\API\LoginRegisterController;
+use App\Http\Controllers\API\PayBillController;
+use App\Http\Controllers\API\ResetPasswordController;
+use App\Http\Controllers\API\SearchController;
+use App\Http\Controllers\API\TeachersController;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+ */
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::middleware('cors')->group(function () {
+
+    Route::middleware('CheckUserRole')->group(function () {
+        Route::post('post/category', [CategoryController::class, 'createCategory'])->name('createCategory');
+        Route::get('get/category', [CategoryController::class, 'getCategory'])->name('getCategory');
+        // Route::delete('delete/{id}/category', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
+        Route::post('post/course', [CategoryController::class, 'createCourse'])->name('createCourse');
+        Route::get('get/course', [CategoryController::class, 'getCourse'])->name('getCourse');
+        Route::put('update/{id}/category', [CategoryController::class, 'updateCategory'])->name('updateCategory');
+        Route::put('update/{id}/course', [CategoryController::class, 'updateCourse'])->name('updateCourse');
+
+        Route::post('post/chapter', [ChapterController::class, 'createChapter'])->name('createChapter');
+        Route::put('update/{id}/chapter', [ChapterController::class, 'updateChapterTeacher'])->name('updateChapterTeacher');
+        Route::get('delete/{id}/chapter', [ChapterController::class, 'deleteChapterTeacher'])->name('deleteChapterTeacher');
+        Route::get('delete/{id}/course', [CategoryController::class, 'deleteCourse'])->name('deleteCourse');
+
+        Route::post('post/lesson', [LessonController::class, 'createLesson'])->name('createLesson');
+        Route::put('update/{id}/lesson', [LessonController::class, 'updateLesson'])->name('updateLesson');
+        Route::get('delete/{id}/lesson', [LessonController::class, 'deleteLesson'])->name('deleteLesson');
+
+    });
+
+    Route::get('invoice/{id}/export-pdf', [InvoiceController::class, 'exportPDF'])->name('exportPDF');
+
+    Route::get('get/{id}/chapter', [ChapterController::class, 'getChapter'])->name('getChapter');
+
+    Route::post('reset/password', [ResetPasswordController::class, 'resetPassword'])->name('resetPassword');
+
+    Route::get('get/{id}/chapter/detail', [ChapterController::class, 'getChapterDetail'])->name('getChapterDetail');
+
+    Route::get('detail/{id}/course', [CategoryController::class, 'getDetailCourse'])->name('getDetailCourse');
+
+    Route::get('get/getCategories', [CategoryController::class, 'getCategories'])->name('getCategories');
+
+    Route::get('get/{id}/getCoursesByTeacherId', [CategoryController::class, 'getCoursesByTeacherId'])->name('getCoursesByTeacherId');
+
+    Route::get('get/courses/show', [CategoryController::class, 'getCoursesShow'])->name('getCoursesShow');
+
+    Route::get('search/course', [SearchController::class, 'searchCourse'])->name('searchCourse');
+
+    Route::get('get/teachers', [TeachersController::class, 'getTeachers'])->name('getTeachers');
+
+    Route::get('teachers/{id}/courses', [TeachersController::class, 'getACourse'])->name('getACourse');
+
+    Route::middleware('evaluate')->group(function () {
+
+        Route::post('courses/{id}/evaluate', [EvaluateController::class, 'createEvaluate']);
+
+        Route::post('change/password', [TeachersController::class, 'changePassword']);
+
+        Route::put('update/user/profile', [TeachersController::class, 'updateUserProfile']);
+
+        //post comment id lesson
+        Route::post('comment/{id}/lesson', [CommentController::class, 'createComment']);
+
+        //Reply to comment
+        Route::post('lesson/{id}/comments/{commentId}/replies', [CommentController::class, 'createReply']);
+
+        // Pay bills
+        Route::post('pay/{id}/bills', [PayBillController::class, 'createPayBills']);
+
+        Route::get('get/myCourse', [PayBillController::class, 'getMyCourse']);
+
+        Route::post('post/course/{id}/activationCode', [PayBillController::class, 'postActivationCode']);
+
+    });
+
+    //get all comment lesson
+    Route::get('lessons/{id}/comments', [CommentController::class, 'getComments'])->name('getComments');
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::namespace('Api')->group(function () {
+
+            Route::get('user', [LoginRegisterController::class, 'getUser'])->name('user');
+
+            Route::post('refresh', [LoginRegisterController::class, 'refresh'])->name('refresh');
+
+        });
+    });
+    Route::post('logout', [LoginRegisterController::class, 'logout'])->name('logout');
+
+    Route::post('register', [LoginRegisterController::class, 'register'])->name('register');
+
+    Route::post('login', [LoginRegisterController::class, 'login'])->name('login');
+
+    Route::get('get/{id}/evaluate', [EvaluateController::class, 'getEvaluate'])->name('getEvaluate');
+
+});
