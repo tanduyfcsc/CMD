@@ -85,9 +85,11 @@ class LoginRegisterController extends Controller
         if (!$token = auth('api')->attempt($validator->validated())) {
             return response()->json(['error' => 'Thông tin đăng nhập sai!'], 422);
         }
+
         $expiresAt = now()->addMinutes(1);
         Cache::put('user-is-online' . Auth::user()->id, true, $expiresAt);
         User::where('id', Auth::user()->id)->update(['last_seen' => now()]);
+
         return $this->createNewToken($token);
 
     }
@@ -97,11 +99,7 @@ class LoginRegisterController extends Controller
      */
     public function logout()
     {
-        if (Auth::check() == false) {
-            return response()->json([
-                'message' => 'Người dùng chưa đăng nhập!',
-            ]);
-        }
+
         Auth::guard('api')->logout();
         return response()->json([
             'message' => 'Đăng xuất thành công!',
@@ -126,20 +124,6 @@ class LoginRegisterController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function refresh()
-    {
-
-        if (auth()->user()) {
-
-            return $this->createNewToken(auth('api')->refresh());
-
-        }
-
-        return response()->json([
-            'error' => 'Người dùng chưa được xác thực!',
-        ]);
-
-    }
 
     /**
      * Get the token array.

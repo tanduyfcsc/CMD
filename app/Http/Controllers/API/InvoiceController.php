@@ -23,4 +23,16 @@ class InvoiceController extends Controller
 
         return PDF::loadView('Invoices.invoice', $data)->download('hoaDon-' . $invoiceBill->maHoaDon . '.pdf');
     }
+
+    public function revenue()
+    {
+        $today = Carbon::now()->toDateString();
+
+        $revenue = DB::table('my_courses')
+            ->whereDate('created_at', $today)
+            ->sum('giaCa');
+
+        return $revenue;
+
+    }
 }

@@ -14,9 +14,10 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="">
-                                            <h2 class="mb-2"> 256 </h2>
-                                            <p class="text-muted mb-0"><span class="badge badge-primary">Doanh thu</span>
-                                                Hôm nay</p>
+                                            <h2 class="mb-2"> {{ $revenue }} </h2>
+                                            <p class="text-muted mb-0"><span class="badge badge-primary"
+                                                    style="background-color: #eec915 !important">Tổng số đơn
+                                                    hàng hôm nay</span></p>
                                         </div>
                                         <div class="lnr lnr-leaf display-4 text-primary"></div>
                                     </div>
@@ -28,39 +29,26 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="">
-                                            <h2 class="mb-2">8451</h2>
-                                            <p class="text-muted mb-0"><span class="badge badge-success">20%</span> Stock
-                                            </p>
+                                            <h2 class="mb-2">{{ number_format(floatval($revenueMonth), 0, ',', '.') }} VNĐ
+                                            </h2>
+
+                                            <div class="customer" style="display:flex">
+                                                <p class="text-muted mb-0">
+                                                    @if ($percentage > 0)
+                                                        <i class="ion ion-md-arrow-round-up ml-3 text-success"
+                                                            style=" margin-left: 0 !important; margin-right: 2px; "></i>
+                                                    @else
+                                                        <i class="ion ion-md-arrow-round-down ml-3 text-danger"
+                                                            style=" margin-left: 0 !important; margin-right: 2px; "></i>
+                                                    @endif
+                                                    {{ number_format($percentage, 2) }}%
+                                                <p class="text-muted mb-0"><span class="badge badge-primary"
+                                                        style=" margin-left: 5px; ">Tổng số doanh thu tháng này</span>
+                                                </p>
+                                                </p>
+                                            </div>
                                         </div>
                                         <div class="lnr lnr-chart-bars display-4 text-success"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card mb-4">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="">
-                                            <h2 class="mb-2"> 31% <small></small></h2>
-                                            <p class="text-muted mb-0">New <span class="badge badge-danger">20%</span>
-                                                Customer</p>
-                                        </div>
-                                        <div class="lnr lnr-rocket display-4 text-danger"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card mb-4">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="">
-                                            <h2 class="mb-2">158</h2>
-                                            <p class="text-muted mb-0"><span class="badge badge-warning">$143.45</span>
-                                                Profit</p>
-                                        </div>
-                                        <div class="lnr lnr-cart display-4 text-warning"></div>
                                     </div>
                                 </div>
                             </div>
@@ -75,13 +63,24 @@
                                                     <i class="lnr lnr-users text-primary display-4"></i>
                                                 </div>
                                                 <div class="col">
-                                                    <h6 class="mb-0 text-muted">Unique <span
-                                                            class="text-primary">Visitors</span></h6>
-                                                    <h4 class="mt-3 mb-0">652<i
-                                                            class="ion ion-md-arrow-round-down ml-3 text-danger"></i></h4>
+                                                    <h4 class="mt-3 mb-0">{{ $totalUsersMonth }}
+                                                        @if ($percentageUser > 0)
+                                                            <i class="ion ion-md-arrow-round-up ml-3 text-success"></i>
+                                                        @elseif ($percentageUser < 0)
+                                                            <i class="ion ion-md-arrow-round-down ml-3 text-danger"></i>
+                                                        @endif
+                                                    </h4>
                                                 </div>
                                             </div>
-                                            <p class="mb-0 text-muted">36% From Last 6 Months</p>
+                                            <div class="customer" style="display:flex">
+                                                <p class="mb-0 text-muted">{{ $percentageUser }}%
+                                                <p class="text-muted mb-0"><span class="badge badge-primary"
+                                                        style="background-color: #2f58ba !important;margin-left: 5px; ">
+                                                        Tổng số người dùng đăng kí tháng này
+                                                    </span>
+                                                </p>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="d-flex col-md-6 align-items-center">

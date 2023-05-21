@@ -28,12 +28,11 @@ class RevenueStatisticsController extends Controller
             $revenuesByTeacher[$teacherID]['value'] += $course->giaCa;
         }
 
-// Sắp xếp mảng theo doanh thu tăng dần
+        // Sắp xếp mảng theo doanh thu tăng dần
         usort($revenuesByTeacher, function ($a, $b) {
             return $b['value'] - $a['value'];
         });
 
         return $revenuesByTeacher;
-        // return response()->json($revenuesByTeacher);
     }
 }
