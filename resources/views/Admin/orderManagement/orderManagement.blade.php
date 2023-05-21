@@ -140,12 +140,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                @if ($invoiceBills->count() >= 5)
-                                    <div class="paginate-nhanVien"
-                                        style=" display: flex; justify-content: center;margin-top: 20px ">
-                                        {{ $invoiceBills->links() }}
-                                    </div>
-                                @endif
+
                                 <div class="tab-pane fade" id="latest-sales">
                                     <div id="tab-table-2" class="ps">
                                         <table class="table table-hover card-table">
@@ -169,6 +164,12 @@
                                     </div>
                                 </div>
                             </div>
+                            @if ($invoiceBills->count() >= 5)
+                                <div class="paginate-nhanVien"
+                                    style=" display: flex; justify-content: center;margin-top: 20px ">
+                                    {{ $invoiceBills->links() }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
