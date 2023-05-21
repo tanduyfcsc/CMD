@@ -164,7 +164,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if ($invoiceBills->count() >= 5)
+                            @if ($invoiceBills->count() >= 1)
                                 <div class="paginate-nhanVien"
                                     style=" display: flex; justify-content: center;margin-top: 20px ">
                                     {{ $invoiceBills->links() }}
