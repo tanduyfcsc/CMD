@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\OderController;
 use App\Http\Controllers\Admin\ResetsPasswordController;
+use App\Models\MyCourse;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,12 +23,10 @@ Admin Dashboard
 Route::middleware('adminLogin')->group(function () {
     Route::get('dashboard', function () {
 
-        // $courses = MyCourse::join('users', 'my_courses.giaoVienID', '=', 'users.id')
-        //     ->leftJoin('bills', 'my_courses.id', '=', 'bills.my_course_id')
-        //     ->where('bills.status', 2)
-        //     ->select('my_courses.*', 'users.hoTen as name', 'users.email', 'users.avatar', 'users.id as idGiangVien', 'bills.my_course_id')
-        //     ->get();
-
+        $courses = MyCourse::join('users', 'my_courses.giaoVienID', '=', 'users.id')
+            ->where('my_courses.trangThai', 0)
+            ->select('my_courses.*', 'users.hoTen as name', 'users.email', 'users.avatar', 'users.id as idGiangVien')
+            ->get();
         $revenuesByTeacher = [];
 
         foreach ($courses as $course) {

@@ -39,17 +39,15 @@ class AppServiceProvider extends ServiceProvider
         $previousMonthStart = Carbon::now()->subMonth()->startOfMonth();
         $previousMonthEnd = Carbon::now()->subMonth()->endOfMonth();
 
-        // $revenueMonth = DB::table('my_courses')
-        //     ->join('bills', 'my_courses.id', '=', 'bills.my_course_id')
-        //     ->where('bills.status', 2)
-        //     ->whereBetween('my_courses.ngayMua', [$currentMonthStart, $currentMonthEnd])
-        //     ->sum('my_courses.giaCa');
+        $revenueMonth = DB::table('my_courses')
+            ->where('trangThai', 0)
+            ->whereBetween('ngayMua', [$currentMonthStart, $currentMonthEnd])
+            ->sum('giaCa');
 
-        // $previousMonthRevenue = DB::table('my_courses')
-        //     ->join('bills', 'my_courses.id', '=', 'bills.my_course_id')
-        //     ->where('bills.status', 2)
-        //     ->whereBetween('my_courses.ngayMua', [$previousMonthStart, $previousMonthEnd])
-        //     ->sum('my_courses.giaCa');
+        $previousMonthRevenue = DB::table('my_courses')
+            ->where('trangThai', 0)
+            ->whereBetween('ngayMua', [$previousMonthStart, $previousMonthEnd])
+            ->sum('giaCa');
 
         $percentage = ($previousMonthRevenue != 0) ? (($revenueMonth - $previousMonthRevenue) / $previousMonthRevenue) * 100 : 0;
         // $percentage = min($percentage, 100);
