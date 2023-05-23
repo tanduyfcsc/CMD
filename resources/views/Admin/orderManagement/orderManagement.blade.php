@@ -91,7 +91,7 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            @if ($invoiceBill->status == 0)
+                                                            {{-- @if ($invoiceBill->status == 0)
                                                                 <span
                                                                     style=" font-size: 10px; background-color: #f88e51 !important; "
                                                                     class="badge badge-pill badge-success">Vừa đặt
@@ -111,7 +111,7 @@
                                                                     style=" font-size: 10px; background-color:  #e81111 !important; "
                                                                     class="badge badge-pill badge-success">Đã hủy
                                                                 </span>
-                                                            @endif
+                                                            @endif --}}
                                                         </td>
 
                                                         <td style=" text-align: center; ">
