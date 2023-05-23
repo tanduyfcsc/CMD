@@ -24,8 +24,9 @@ Route::middleware('adminLogin')->group(function () {
     Route::get('dashboard', function () {
 
         $courses = MyCourse::join('users', 'my_courses.giaoVienID', '=', 'users.id')
-            ->where('my_courses.trangThai', 0)
-            ->select('my_courses.*', 'users.hoTen as name', 'users.email', 'users.avatar', 'users.id as idGiangVien')
+            ->leftJoin('bills', 'my_courses.id', '=', 'bills.my_course_id')
+            ->where('bills.status', 2)
+            ->select('my_courses.*', 'users.hoTen as name', 'users.email', 'users.avatar', 'users.id as idGiangVien', 'bills.my_course_id')
             ->get();
         $revenuesByTeacher = [];
 
