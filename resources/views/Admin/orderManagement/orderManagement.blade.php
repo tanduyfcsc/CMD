@@ -91,15 +91,25 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            @if ($invoiceBill->trangThai == 0)
+                                                            @if ($invoiceBill->status == 0)
                                                                 <span
-                                                                    style=" font-size: 10px; background-color: #12d560 !important; "
-                                                                    class="badge badge-pill badge-success">Đã kích hoạt
+                                                                    style=" font-size: 10px; background-color: #f88e51 !important; "
+                                                                    class="badge badge-pill badge-success">Vừa đặt
                                                                 </span>
-                                                            @else
+                                                            @elseif ($invoiceBill->status == 1)
                                                                 <span
-                                                                    style=" font-size: 10px; background-color: #78786f !important; "
-                                                                    class="badge badge-pill badge-success">Chưa kích hoạt
+                                                                    style=" font-size: 10px; background-color:  #f8fc1b !important; "
+                                                                    class="badge badge-pill badge-success">Đang giao
+                                                                </span>
+                                                            @elseif ($invoiceBill->status == 2)
+                                                                <span
+                                                                    style=" font-size: 10px; background-color:  #1fef37 !important; "
+                                                                    class="badge badge-pill badge-success">Đã giao
+                                                                </span>
+                                                            @elseif ($invoiceBill->status == 3)
+                                                                <span
+                                                                    style=" font-size: 10px; background-color:  #e81111 !important; "
+                                                                    class="badge badge-pill badge-success">Đã hủy
                                                                 </span>
                                                             @endif
                                                         </td>

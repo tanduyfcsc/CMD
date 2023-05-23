@@ -6,7 +6,6 @@ use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 
 class LoginAdminMiddleware
 {
@@ -19,18 +18,16 @@ class LoginAdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->phanQuyen >= 1) {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $phanQuyen = $user->phanQuyen;
 
-            if (Auth::check()) {
-                $expiresAt = now()->addMinutes(1);
-                Cache::put('user-is-online' . Auth::user()->id, true, $expiresAt);
-                User::where('id', Auth::user()->id)->update(['last_seen' => now()]);
+            if ($phanQuyen == 1 || $phanQuyen == 3) {
+                return $next($request);
             }
-            return $next($request);
         }
 
-        return redirect('login');
-
+        return redirect()->back();
     }
 
 }

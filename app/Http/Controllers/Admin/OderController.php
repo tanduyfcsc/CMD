@@ -12,6 +12,7 @@ class OderController extends Controller
         $invoiceBills = Bill::join('my_courses', 'my_courses.id', '=', 'bills.my_course_id')
             ->orderBy('bills.id', 'DESC')
             ->paginate(5, ['bills.*', 'my_courses.tenKhoaHoc', 'my_courses.giaCa', 'my_courses.trangThai', 'my_courses.ngayMua']);
+
         return view('Admin.orderManagement.orderManagement', ['invoiceBills' => $invoiceBills]);
 
     }

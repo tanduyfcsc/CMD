@@ -17,9 +17,9 @@ class LogoutAdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()) {
+        if (Auth::check()) {
 
-            return redirect()->back();
+            return redirect('/dashboard');
         }
 
         return $next($request);

@@ -113,7 +113,7 @@
                          <i class="feather icon-settings text-muted"></i> &nbsp; Account settings</a>
                      <div class="dropdown-divider"></div>
                      <a href="{{ route('logout-admin') }}" class="dropdown-item">
-                         <i class="feather icon-power text-danger"></i> &nbsp; Log Out</a>
+                         <i class="feather icon-power text-danger"></i> &nbsp; Đăng xuất</a>
                  </div>
              </div>
          </div>

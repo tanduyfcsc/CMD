@@ -18,22 +18,22 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 
     <!-- Icon fonts -->
-    <link rel="stylesheet" href="{{ 'assetsAdmin/fonts/fontawesome.css' }}">
-    <link rel="stylesheet" href="{{ 'assetsAdmin/fonts/ionicons.css' }}">
-    <link rel="stylesheet" href="{{ 'assetsAdmin/fonts/linearicons.css' }}">
-    <link rel="stylesheet" href="{{ 'assetsAdmin/fonts/open-iconic.css' }}">
-    <link rel="stylesheet" href="{{ 'assetsAdmin/fonts/pe-icon-7-stroke.css' }}">
-    <link rel="stylesheet" href="{{ 'assetsAdmin/fonts/feather.css' }}">
+    <link rel="stylesheet" href="{{ asset('assetsAdmin/fonts/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetsAdmin/fonts/ionicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetsAdmin/fonts/linearicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetsAdmin/fonts/open-iconic.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetsAdmin/fonts/pe-icon-7-stroke.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetsAdmin/fonts/feather.css') }}">
 
     <!-- Core stylesheets -->
-    <link rel="stylesheet" href="{{ 'assetsAdmin/css/bootstrap-material.css' }}">
-    <link rel="stylesheet" href="{{ 'assetsAdmin/css/shreerang-material.css' }}">
-    <link rel="stylesheet" href="{{ 'assetsAdmin/css/uikit.css' }}">
+    <link rel="stylesheet" href="{{ asset('assetsAdmin/css/bootstrap-material.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetsAdmin/css/shreerang-material.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetsAdmin/css/uikit.css') }}">
 
     <!-- Libs -->
-    <link rel="stylesheet" href="{{ 'assetsAdmin/libs/perfect-scrollbar/perfect-scrollbar.css' }}">
+    <link rel="stylesheet" href="{{ asset('assetsAdmin/libs/perfect-scrollbar/perfect-scrollbar.css') }}">
     <!-- Page -->
-    <link rel="stylesheet" href="{{ 'assetsAdmin/css/pages/authentication.css' }}">
+    <link rel="stylesheet" href="{{ asset('assetsAdmin/css/pages/authentication.css') }}">
     <style type="text/css" id="pace-js-stylesheets">
         .pace {
             display: block !important;
@@ -363,33 +363,25 @@
             <!-- [ Logo ] End -->
 
             <!-- [ Form ] Start -->
-            <form method="POST" action="{{ route('admin-login') }}" class="my-5">
+            <form method="POST" action="{{ route('postResetPassword') }}" class="my-5">
                 @csrf
                 <div class="form-group">
                     <label class="form-label">Email</label>
-                    <input name="email" value="{{ old('email') }}" type="email" class="form-control">
+                    <input name="email" value="{{ old('email') }}" placeholder="Hãy nhập email " type="email"
+                        class="form-control">
                     <div class="clearfix"></div>
                     @error('email')
                         <span style="color:red">{{ $message }}</span>
                     @enderror
-                </div>
-                <div class="form-group">
-                    <label class="form-label d-flex justify-content-between align-items-end">
-                        <span>Password</span>
-                        <a href="{{ route('viewResetPassword') }}" class="d-block small">Quên mật khẩu?</a>
-                    </label>
-                    <input name="password" type="password" class="form-control">
-                    <div class="clearfix"></div>
-                    @error('password')
+                    @error('errors')
                         <span style="color:red">{{ $message }}</span>
                     @enderror
+                    <a href="{{ route('admin-login') }}" class="d-block small" style="text-align: end;">Đăng nhập</a>
+
                 </div>
-                @error('errors')
-                    <span style="color:red">{{ $message }}</span>
-                @enderror
                 <div class="d-flex justify-content-between align-items-center m-0"
                     style=" justify-content: center !important; ">
-                    <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                    <button type="submit" class="btn btn-primary">Lấy lại mật khẩu</button>
                 </div>
             </form>
             <!-- [ Form ] End -->

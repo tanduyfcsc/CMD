@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\AddUserController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\OderController;
-use App\Http\Controllers\Admin\RevenueStatisticsController;
-use App\Models\Bill;
+use App\Http\Controllers\Admin\ResetsPasswordController;
 use App\Models\MyCourse;
 use Illuminate\Support\Facades\Route;
 
@@ -24,10 +22,13 @@ Admin Dashboard
  */
 Route::middleware('adminLogin')->group(function () {
     Route::get('dashboard', function () {
+
         $courses = MyCourse::join('users', 'my_courses.giaoVienID', '=', 'users.id')
-            ->where('my_courses.trangThai', 0)
-            ->select('my_courses.*', 'users.hoTen as name', 'users.email', 'users.avatar', 'users.id as idGiangVien')
+            ->leftJoin('bills', 'my_courses.id', '=', 'bills.my_course_id')
+            ->where('bills.status', 2)
+            ->select('my_courses.*', 'users.hoTen as name', 'users.email', 'users.avatar', 'users.id as idGiangVien', 'bills.my_course_id')
             ->get();
+
         $revenuesByTeacher = [];
 
         foreach ($courses as $course) {
@@ -78,34 +79,11 @@ Route::middleware('adminLogin')->group(function () {
 
 });
 
+Route::get('resets/password/admin', [ResetsPasswordController::class, 'viewResetPassword'])->name('viewResetPassword');
+Route::post('post/resets/password', [ResetsPasswordController::class, 'postResetPassword'])->name('postResetPassword');
+
 /*
 Login Admin
  */
-
-Route::get('login/test', function () {
-    return view('Admin.userManagement.test');
-});
-
-Route::get('category', function () {
-    return view('Admin.userManagement.category');
-});
-
-Route::get('/update/user/{token}', function () {
-    return view('Admin.userManagement.category');
-});
-
-Route::get('/update/chapters', function () {
-    $invoiceBills = Bill::join('my_courses', 'my_courses.id', '=', 'bills.my_course_id')
-        ->orderBy('bills.id', 'DESC')
-        ->get(['bills.*', 'my_courses.tenKhoaHoc', 'my_courses.giaCa', 'my_courses.trangThai', 'my_courses.ngayMua']);
-    return $invoiceBills;
-});
-
-Route::get('course', function () {
-    return view('Admin.userManagement.testkhoa');
-});
-
-Route::middleware('adminLogout')->group(function () {
-    Route::get('/login', [AdminLoginController::class, 'loginForm'])->name('admin-login');
-    Route::post('/login', [AdminLoginController::class, 'login']);
-});
+Route::get('/login', [AdminLoginController::class, 'loginForm'])->name('admin-login');
+Route::post('/login', [AdminLoginController::class, 'login']);

@@ -19,6 +19,7 @@ class Bill extends Model
         'maKichHoat',
         'user_id',
         'my_course_id',
+        'status',
     ];
 
     public function user()

@@ -197,6 +197,7 @@ class PayBillController extends Controller
             'maKichHoat' => $this->activationCode,
             'user_id' => $this->userId->returnUserId(),
             'my_course_id' => $myCourseId,
+            'status' => 0,
         ]);
     }
 
