@@ -65,45 +65,5 @@
             </ul>
         </li>
         <li class="sidenav-divider mb-1"></li>
-        <li class="sidenav-header small font-weight-semibold">Icons</li>
-        <li class="sidenav-item">
-            <a href="javascript:" class="sidenav-link sidenav-toggle">
-                <i class="sidenav-icon feather icon-feather"></i>
-                <div>Icons</div>
-            </a>
-            <ul class="sidenav-menu">
-                <li class="sidenav-item">
-                    <a href="icons_feather.html" class="sidenav-link">
-                        <div>Feather</div>
-                    </a>
-                </li>
-                <li class="sidenav-item">
-                    <a href="icons_linearicons.html" class="sidenav-link">
-                        <div>Linearicons</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <li class="sidenav-divider mb-1"></li>
-        <li class="sidenav-header small font-weight-semibold">Pages</li>
-        <li class="sidenav-item">
-            <a href="pages_authentication_login-v1.html" class="sidenav-link">
-                <i class="sidenav-icon feather icon-lock"></i>
-                <div>Login</div>
-            </a>
-        </li>
-        <li class="sidenav-item">
-            <a href="pages_authentication_register-v1.html" class="sidenav-link">
-                <i class="sidenav-icon feather icon-user"></i>
-                <div>Signup</div>
-            </a>
-        </li>
-        <li class="sidenav-item">
-            <a href="pages_faq.html" class="sidenav-link">
-                <i class="sidenav-icon feather icon-anchor"></i>
-                <div>FAQ</div>
-            </a>
-        </li>
     </ul>
 </div>
