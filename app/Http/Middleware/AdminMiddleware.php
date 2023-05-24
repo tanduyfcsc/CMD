@@ -21,6 +21,7 @@ class AdminMiddleware
 
             return $next($request);
         }
-        return redirect()->back();
+        return redirect()->back()->with('error', 'Bạn không có quyền');
+
     }
 }

@@ -5,6 +5,21 @@
         <div class="container-fluid flex-grow-1 container-p-y">
             <div class="sucs" style=" display: flex;  ">
                 <h4 class="font-weight-bold py-3 mb-0">Quản lí đơn hàng</h4>
+                @if (session()->has('success'))
+                    <div
+                        class="alert alert-dark-success alert-dismissible fade show"style=" border-radius: 6px;right: 33px; position: absolute; ">
+                        <button type="button" style=" outline: none; " class="close" data-dismiss="alert">×</button>
+                        {{ session()->get('success') }}
+                    </div>
+                @endif
+
+                @if (session()->has('error'))
+                    <div
+                        class="alert alert-dark-success alert-dismissible fade show"style=" background-color: #f00000 !important; border-radius: 6px;right: 33px; position: absolute; ">
+                        <button type="button" style=" outline: none; " class="close" data-dismiss="alert">×</button>
+                        {{ session()->get('error') }}
+                    </div>
+                @endif
             </div>
             <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
                 <ol class="breadcrumb">
@@ -98,7 +113,7 @@
                                                                 </span>
                                                             @elseif ($invoiceBill->status == 1)
                                                                 <span
-                                                                    style=" font-size: 10px; background-color:  #f8fc1b !important; "
+                                                                    style=" font-size: 10px; background-color:  #2f1bfc !important; "
                                                                     class="badge badge-pill badge-success">Đang giao
                                                                 </span>
                                                             @elseif ($invoiceBill->status == 2)
@@ -115,7 +130,7 @@
                                                         </td>
 
                                                         <td style=" text-align: center; ">
-                                                            @if ($invoiceBill->trangThai == 0)
+                                                            @if ($invoiceBill->status == 2)
                                                                 <a href="#"
                                                                     style="pointer-events: none;color :#78786f">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="21"
@@ -137,7 +152,15 @@
                                                                 </a>
                                                             @endif
                                                             /
-                                                            <a href="#">
+                                                            <button type="button"
+                                                                class="btn icon-btn btn-sm btn-outline-secondary"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal_{{ $invoiceBill->maHoaDon }}">
+                                                                <span class="feather icon-edit-1"></span>
+                                                            </button>
+                                                            /
+                                                            <a
+                                                                href="{{ route('order-Delete', ['id' => $invoiceBill->id]) }}">
                                                                 <button type="button"
                                                                     class="btn icon-btn btn-sm btn-outline-danger">
                                                                     <span class="feather icon-trash-2"></span>
@@ -184,6 +207,72 @@
                     </div>
                 </div>
             </div>
+
+            @foreach ($invoiceBills as $invoiceBill)
+                <div class="modal fade" id="exampleModal_{{ $invoiceBill->maHoaDon }}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn hàng</h5>
+                                <button type="button" class="close" data-dismiss="modal" style=" outline: none; "
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="model-left">
+                                            <p>Mã đơn hàng: {{ $invoiceBill->maHoaDon }}</p>
+                                            <p>Họ tên: {{ $invoiceBill->hoTen }}</p>
+                                            <p>Số điện thoại: {{ $invoiceBill->soDienThoai }}</p>
+                                            <p>Địa chỉ: {{ $invoiceBill->diaChi }}</p>
+                                            <p>Tên khóa học: {{ $invoiceBill->tenKhoaHoc }}</p>
+                                            <p>Số lượng: 1</p>
+                                            <p>Giá: {{ number_format(floatval($invoiceBill->giaCa), 0, ',', '.') }} VNĐ</p>
+                                            <p>Ngày mua: {{ $invoiceBill->ngayMua }}</p>
+                                            <form action="{{ route('orderUpdate', ['id' => $invoiceBill->id]) }}"
+                                                method="post">
+                                                @csrf
+                                                <input type="hidden" name="invoice_id"
+                                                    value="{{ $invoiceBill->maHoaDon }}">
+                                                <label for="status">Trạng thái:</label>
+                                                <select id="status" name="status">
+                                                    <option
+                                                        value="0"{{ $invoiceBill->status == 0 ? ' selected' : '' }}>
+                                                        Vừa đặt</option>
+                                                    <option
+                                                        value="1"{{ $invoiceBill->status == 1 ? ' selected' : '' }}>
+                                                        Đang giao</option>
+                                                    <option
+                                                        value="2"{{ $invoiceBill->status == 2 ? ' selected' : '' }}>
+                                                        Đã giao</option>
+                                                    <option
+                                                        value="3"{{ $invoiceBill->status == 3 ? ' selected' : '' }}>
+                                                        Đã hủy</option>
+                                                </select>
+                                                <button type="submit" class="btn btn-xs btn-outline-success"
+                                                    style=" margin-left: 19px; ">Lưu</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="model-right">
+                                            <img src="{{ $invoiceBill->linkVideo }}" alt=""
+                                                style="width: 100%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
         </div>
         <!-- [ content ] End -->
     </div>

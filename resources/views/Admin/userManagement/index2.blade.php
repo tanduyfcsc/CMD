@@ -48,7 +48,6 @@
                                                 <tr>
                                                     <th>Hình ảnh / Họ tên</th>
                                                     <th>Quyền</th>
-                                                    <th>Trạng thái</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -81,19 +80,6 @@
                                                                 <span
                                                                     style=" font-size: 10px; background-color: #0081f5 !important; "
                                                                     class="badge badge-pill badge-success">Giảng viên
-                                                                </span>
-                                                            @endif
-                                                        </td>
-                                                        <td style=" display: table-cell; vertical-align: middle; ">
-                                                            @if ($user->isUserOnline())
-                                                                <span
-                                                                    style=" font-size: 10px; background-color: #02b91c !important; "
-                                                                    class="badge badge-pill badge-success">online</span>
-                                                                </span>
-                                                            @else
-                                                                <span
-                                                                    style=" font-size: 10px; background-color: #beb4b3 !important; "
-                                                                    class="badge badge-pill badge-success">offline</span>
                                                                 </span>
                                                             @endif
                                                         </td>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AddUserController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\OderController;
 use App\Http\Controllers\Admin\ResetsPasswordController;
@@ -70,9 +71,11 @@ Route::middleware('adminLogin')->group(function () {
         Route::post('add/User', [AddUserController::class, 'addUser'])->name('add-User');
         Route::get('revenue/statistics/teacher', [RevenueStatisticsController::class, 'RevenueStatisticsTeacher'])->name('RevenueStatisticsTeacher');
 
-        Route::get('quan-li-don-hang', [OderController::class, 'oderManagement'])->name('oder-management');
+        Route::get('delete/{id}/order', [OderController::class, 'orderDelete'])->name('order-Delete');
 
     });
+    Route::get('quan-li-don-hang', [OderController::class, 'oderManagement'])->name('oder-management');
+    Route::post('update/{id}/order', [OderController::class, 'orderUpdate'])->name('orderUpdate');
 
     Route::get('logout', [AdminLoginController::class, 'logout'])->name('logout-admin');
 
