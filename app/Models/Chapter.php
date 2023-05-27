@@ -34,4 +34,9 @@ class Chapter extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function myChapter()
+    {
+        return $this->hasOne(MyChapter::class, 'idChuongHoc', 'id');
+    }
+
 }

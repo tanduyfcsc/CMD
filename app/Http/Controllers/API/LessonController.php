@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Lesson;
+use App\Models\MyChapter;
+use App\Models\MyLesson;
 use App\Repositories\UserId;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -98,6 +100,26 @@ class LessonController extends Controller
             'user_id' => $this->userId->returnUserId(),
         ]);
 
+        $myChapterId = MyChapter::where('idChuongHoc', $request->chapter_id)
+            ->value('id');
+
+        if ($myChapterId) {
+
+            $myLessonUpdate = MyLesson::where('idBaiHoc', $id)->first();
+
+            if ($myLessonUpdate) {
+
+                $myLessonUpdate->update([
+                    'tenBaiHoc' => $request->tenBaiHoc,
+                    'linkVideo' => $request->linkVideo,
+                    'tenBaiTap' => $request->tenBaiTap,
+                    'moTaBaiTap' => $request->moTaBaiTap,
+                    'trangThai' => $request->trangThai,
+                    'my_chapter_id' => $myChapterId,
+                ]);
+            }
+
+        }
         return response()->json(['message' => 'Cập nhật bài học thành công', 'data' => $lesson->fresh()], 200);
     }
 
