@@ -267,12 +267,14 @@ class CategoryController extends Controller
 
         $myCourseUpdate = MyCourse::where('idKhoaHoc', $id)->first();
 
-        $myCourseUpdate->update([
-            'tenKhoaHoc' => $request->tenKhoaHoc,
-            'moTa' => $request->moTa,
-            'linkVideo' => $request->linkVideo,
-            'giaCa' => $request->giaCa,
-        ]);
+        if ($myCourseUpdate) {
+            $myCourseUpdate->update([
+                'tenKhoaHoc' => $request->tenKhoaHoc,
+                'moTa' => $request->moTa,
+                'linkVideo' => $request->linkVideo,
+                'giaCa' => $request->giaCa,
+            ]);
+        }
 
         return response()->json(['message' => 'Cập nhật khóa học thành công', 'data' => $course->fresh()], 200);
     }
