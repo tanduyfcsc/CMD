@@ -21,13 +21,15 @@ class LoginAdminMiddleware
         if (Auth::check()) {
             $user = Auth::user();
             $phanQuyen = $user->phanQuyen;
+            $trangThai = $user->trangThai;
 
-            if ($phanQuyen == 1 || $phanQuyen == 3) {
+            if ($trangThai == 0 && ($phanQuyen == 1 || $phanQuyen == 3)) {
                 return $next($request);
+            } else {
+                return redirect()->back();
             }
         }
 
         return redirect()->back();
     }
-
 }

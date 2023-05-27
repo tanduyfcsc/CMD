@@ -63,7 +63,7 @@
                                                     <th>Giá</th>
                                                     <th>Ngày mua</th>
                                                     <th>Trạng thái</th>
-                                                    <th style=" text-align: center; ">Xuất hóa đơn</th>
+                                                    <th style=" text-align: center; ">Chức năng</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

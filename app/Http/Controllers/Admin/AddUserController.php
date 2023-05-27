@@ -21,8 +21,8 @@ class AddUserController extends Controller
 
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
-            $file_name = $image->getClientOriginalName();
-            Storage::put('public/images/' . $file_name, file_get_contents($image));
+            $path = Storage::disk('google')->putFileAs('/', $image, $image->getClientOriginalName());
+            $url = Storage::disk('google')->url($path);
         }
 
         $create = User::create([
@@ -33,7 +33,7 @@ class AddUserController extends Controller
             'ngaySinh' => date('Y-m-d', strtotime($request->ngaySinh)),
             'gioiTinh' => $request->gioiTinh,
             'diaChi' => $request->diaChi,
-            'avatar' => $file_name,
+            'avatar' => $url,
             'trangThai' => $request->trangThai,
             'phanQuyen' => $request->phanQuyen,
         ]);
