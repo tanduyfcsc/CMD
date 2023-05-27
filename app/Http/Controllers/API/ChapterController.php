@@ -103,9 +103,11 @@ class ChapterController extends Controller
 
         $myChapterUpdate = MyChapter::where('idChuongHoc', $id)->first();
 
-        $myChapterUpdate->update([
-            'tenChuongHoc' => $request->tenChuongHoc,
-        ]);
+        if ($myChapterUpdate) {
+            $myChapterUpdate->update([
+                'tenChuongHoc' => $request->tenChuongHoc,
+            ]);
+        }
 
         return response()->json(['message' => 'Cập nhật chương học thành công', 'data' => $chapter->fresh()], 200);
     }
