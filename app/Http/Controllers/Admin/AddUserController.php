@@ -92,9 +92,9 @@ class AddUserController extends Controller
 
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
-            $file_name = $image->getClientOriginalName();
-            Storage::put('public/images/' . $file_name, file_get_contents($image));
-            $data['avatar'] = $file_name;
+            $path = Storage::disk('google')->putFileAs('/', $image, $image->getClientOriginalName());
+            $url = Storage::disk('google')->url($path);
+            $data['avatar'] = $url;
         }
 
         $user->update($data);
