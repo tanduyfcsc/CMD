@@ -139,8 +139,13 @@
                                 <label class="form-label w-100">Avatar</label>
                                 <input name="avatar" value="{{ old('avatar') }}" type="file">
                                 <div class="img-edit">
-                                    <img class="d-block ui-w-40 rounded-circle"
-                                        src="{{ Storage::url('public/images/' . $user->avatar) }}" alt="">
+                                    @if (!Storage::exists('public/images/' . $user->avatar))
+                                        <img src="{{ $user->avatar }}" class="d-block ui-w-40 rounded-circle"
+                                            alt="">
+                                    @else
+                                        <img src="{{ Storage::url('public/images/' . $user->avatar) }}"
+                                            class="d-block ui-w-40 rounded-circle" alt="">
+                                    @endif
                                 </div>
                                 <div class="clearfix"></div>
                                 @error('avatar')
