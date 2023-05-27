@@ -9,6 +9,7 @@ use App\Models\MyChapter;
 use App\Models\MyCourse;
 use App\Models\MyLesson;
 use App\Repositories\UserId;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -109,13 +110,18 @@ class PayBillController extends Controller
         $myCourse = MyCourse::where('id', $id)
             ->where('user_id', $this->userId->returnUserId())
             ->first();
+        if (!$myCourse) {
+            return response()->json(['error' => 'Khóa học không tồn tại'], 404);
+        }
         $activationCode = $request->input('activation_code');
         if ($myCourse->trangThai == 0) {
             return response()->json(['error' => 'Khóa học đã được kích hoạt'], 422);
         }
         if ($activationCode && $activationCode === $myCourse->maKichHoat) {
             $myCourse->trangThai = 0;
+            $myCourse->ngayHetHan = Carbon::now()->addYear();
             $myCourse->save();
+
             return response()->json(['message' => 'Kích hoạt mã thành công'], 200);
         }
         return response()->json(['error' => 'Mã kích hoạt không chính xác'], 422);
@@ -164,8 +170,8 @@ class PayBillController extends Controller
                 'tenChuongHoc' => $chapter->tenChuongHoc,
                 'trangThai' => $chapter->trangThai,
                 'giaoVienID' => $chapter->user_id,
-
                 'my_course_id' => $myCourseId,
+                'idChuongHoc' => $chapter->id,
             ]);
 
             foreach ($chapter->lessons as $lesson) {
@@ -177,11 +183,13 @@ class PayBillController extends Controller
                     'trangThai' => $lesson->trangThai,
                     'giaoVienID' => $lesson->user_id,
                     'my_chapter_id' => $myChapter->id,
+                    'idBaiHoc' => $lesson->id,
                 ]);
             }
 
             $myChapters[] = $myChapter;
         }
+
     }
 
     /*

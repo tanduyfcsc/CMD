@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\MyCourse;
 use App\Models\User;
 use App\Repositories\UserId;
 use Illuminate\Http\Request;
@@ -262,6 +263,15 @@ class CategoryController extends Controller
             'giaCa' => $request->giaCa,
             'trangThai' => $request->trangThai,
             'category_id' => $request->category_id,
+        ]);
+
+        $myCourseUpdate = MyCourse::where('idKhoaHoc', $id)->first();
+
+        $myCourseUpdate->update([
+            'tenKhoaHoc' => $request->tenKhoaHoc,
+            'moTa' => $request->moTa,
+            'linkVideo' => $request->linkVideo,
+            'giaCa' => $request->giaCa,
         ]);
 
         return response()->json(['message' => 'Cập nhật khóa học thành công', 'data' => $course->fresh()], 200);

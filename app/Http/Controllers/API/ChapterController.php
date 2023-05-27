@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
+use App\Models\MyChapter;
 use App\Repositories\UserId;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -98,6 +99,12 @@ class ChapterController extends Controller
             'trangThai' => $request->trangThai,
             'course_id' => $request->course_id,
             'user_id' => $this->userId->returnUserId(),
+        ]);
+
+        $myChapterUpdate = MyChapter::where('idChuongHoc', $id)->first();
+
+        $myChapterUpdate->update([
+            'tenChuongHoc' => $request->tenChuongHoc,
         ]);
 
         return response()->json(['message' => 'Cập nhật chương học thành công', 'data' => $chapter->fresh()], 200);
