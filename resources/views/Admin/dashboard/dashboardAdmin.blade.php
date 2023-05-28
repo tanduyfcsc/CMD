@@ -306,7 +306,7 @@
                                     min-width: 50px;
                                 }
                             </style>
-                            <figure class="highcharts-figure">
+                            <figure class="highcharts-figure" style=" margin-top: 60px;">
                                 <div id="container"></div>
                             </figure>
 

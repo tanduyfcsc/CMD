@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\AddUserController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\OderController;
 use App\Http\Controllers\Admin\ResetsPasswordController;
-use App\Models\Category;
 use App\Models\MyCourse;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
@@ -40,9 +39,10 @@ Route::middleware('adminLogin')->group(function () {
             ->select('my_courses.*', 'users.hoTen as name', 'users.email', 'users.avatar', 'users.id as idGiangVien', 'bills.my_course_id')
             ->get();
 
-        $revenuesByTeacher = [];
         $courseMyCourseTeacher = [];
+        $revenuesByTeacher = [];
 
+        // Tính tổng doanh thu cho mỗi giáo viên dựa trên tất cả các khóa học
         foreach ($courses as $course) {
             $teacherID = $course->giaoVienID;
             if (!isset($revenuesByTeacher[$teacherID])) {
@@ -56,6 +56,7 @@ Route::middleware('adminLogin')->group(function () {
             $revenuesByTeacher[$teacherID]['value'] += $course->giaCa;
         }
 
+        // Tính tổng doanh thu cho mỗi giáo viên dựa trên các khóa học đã mua trong tháng hiện tại
         foreach ($myCourses as $myCourse) {
             $teacherIDMyCourse = $myCourse->giaoVienID;
             if (!isset($courseMyCourseTeacher[$teacherIDMyCourse])) {
@@ -120,18 +121,3 @@ Login Admin
  */
 Route::get('/login', [AdminLoginController::class, 'loginForm'])->name('admin-login');
 Route::post('/login', [AdminLoginController::class, 'login']);
-
-Route::get('test', function () {
-    $categories = Category::with('course.instructor')
-        ->select('categories.*')
-        ->orderBy('id', 'desc')
-        ->get();
-
-    return $categories;
-    // foreach ($category as $value) {
-    //     $courses = $value->course;
-    //     return $courses;
-
-    // }
-
-});
