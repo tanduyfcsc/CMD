@@ -92,7 +92,7 @@ Route::get('/login', [AdminLoginController::class, 'loginForm'])->name('admin-lo
 Route::post('/login', [AdminLoginController::class, 'login']);
 
 Route::get('test', function () {
-    $categories = Category::with('course')
+    $categories = Category::with('course.instructor')
         ->select('categories.*')
         ->orderBy('id', 'desc')
         ->get();

@@ -180,7 +180,7 @@ class CategoryController extends Controller
     public function getCategoryCourse()
     {
 
-        $getCategoryCourse = Category::with('course')
+        $getCategoryCourse = Category::with('course.instructor')
             ->select('categories.*')
             ->orderBy('id', 'desc')
             ->get();
