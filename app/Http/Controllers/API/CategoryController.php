@@ -194,10 +194,22 @@ class CategoryController extends Controller
 
         $course = Course::with(['chapters' => function ($query) {
             $query->select(['id', 'tenChuongHoc', 'course_id', 'user_id'])
-                ->with('lessons');
+                ->with(
+                    'lessons'
+                );
         }])->findOrFail($id);
 
         $course->instructor;
+
+        $course->chapters->map(function ($chapter) {
+            $chapter->lessons->map(function ($lesson) {
+                if ($lesson->trangThai == 0) {
+                    $lesson->linkVideo = "";
+                }
+                return $lesson;
+            });
+            return $chapter;
+        });
 
         return response()->json(['data' => $course]);
     }
