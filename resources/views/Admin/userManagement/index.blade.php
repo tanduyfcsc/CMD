@@ -107,7 +107,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    @if ($users->count() >= 5)
+                                    @if ($users->count() >= 1)
                                         <div class="paginate-nhanVien"
                                             style=" display: flex; justify-content: center;margin-top: 20px ">
                                             {{ $users->links() }}
@@ -142,7 +142,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    @if ($users->count() >= 5)
+                                    @if ($users->count() >= 1)
                                         <div class="paginate-nhanVien"
                                             style=" display: flex; justify-content: center;margin-top: 20px ">
                                             {{ $users->links() }}
