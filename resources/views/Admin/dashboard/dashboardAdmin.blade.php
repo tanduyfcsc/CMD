@@ -328,7 +328,7 @@
                                         }
                                     },
                                     series: [{
-                                        name: 'Brands',
+                                        name: 'Phần trăm',
                                         colorByPoint: true,
                                         data: [
                                             @foreach ($courseMyCourseTeacher as $courseMyCourse)

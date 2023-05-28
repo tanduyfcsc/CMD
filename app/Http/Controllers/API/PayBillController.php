@@ -113,10 +113,13 @@ class PayBillController extends Controller
         if (!$myCourse) {
             return response()->json(['error' => 'Khóa học không tồn tại'], 404);
         }
+
         $activationCode = $request->input('activation_code');
+
         if ($myCourse->trangThai == 0) {
             return response()->json(['error' => 'Khóa học đã được kích hoạt'], 422);
         }
+
         if ($activationCode && $activationCode === $myCourse->maKichHoat) {
             $myCourse->trangThai = 0;
             $myCourse->ngayHetHan = Carbon::now()->addYear();
