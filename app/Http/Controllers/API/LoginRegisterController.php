@@ -50,7 +50,7 @@ class LoginRegisterController extends Controller
             'gioiTinh' => 'Nam',
             'diaChi' => '',
             'avatar' => $imgLink,
-            'trangThai' => 1,
+            'trangThai' => 0,
             'phanQuyen' => 0,
         ]);
         if ($userCreate) {

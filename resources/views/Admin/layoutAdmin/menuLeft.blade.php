@@ -17,9 +17,6 @@
             <a href="{{ route('admin-dashboard') }}" class="sidenav-link">
                 <i class="sidenav-icon feather icon-home"></i>
                 <div>Dashboards</div>
-                <div class="pl-1 ml-auto">
-                    <div class="badge badge-danger">Hot</div>
-                </div>
             </a>
         </li>
 
