@@ -85,9 +85,10 @@ class LoginRegisterController extends Controller
             return response()->json(['error' => 'Thông tin đăng nhập sai!'], 422);
         }
 
-        // $expiresAt = now()->addMinutes(1);
-        // Cache::put('user-is-online' . Auth::user()->id, true, $expiresAt);
-        // User::where('id', Auth::user()->id)->update(['last_seen' => now()]);
+        if (auth('api')->user()->trangThai == 1) {
+            return response()->json(['error' => 'Tài khoản của bạn bị vô hiệu hóa!'], 422);
+
+        }
 
         return $this->createNewToken($token);
 

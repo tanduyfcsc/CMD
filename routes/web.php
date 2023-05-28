@@ -75,9 +75,16 @@ Route::middleware('adminLogin')->group(function () {
         Route::get('delete/{id}/order', [OderController::class, 'orderDelete'])->name('order-Delete');
 
     });
+    Route::post('update/{id}/student', [AddUserController::class, 'studentUpdate'])->middleware('studentManagement')->name('studentUpdate');
+
+    Route::get('view/{id}/student', [AddUserController::class, 'studentEdit'])->middleware('studentManagement')->name('studentEdit');
+
+    Route::get('delete/{id}/student', [AddUserController::class, 'studentDelete'])->middleware('studentManagement')->name('studentDelete');
+
+    Route::get('quan-li-nguoi-dung', [AddUserController::class, 'studentManagement'])->middleware('studentManagement')->name('studentManagement');
+
     Route::get('quan-li-don-hang', [OderController::class, 'oderManagement'])->name('oder-management');
     Route::post('update/{id}/order', [OderController::class, 'orderUpdate'])->name('orderUpdate');
-
     Route::get('logout', [AdminLoginController::class, 'logout'])->name('logout-admin');
 
 });

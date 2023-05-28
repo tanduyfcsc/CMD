@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use file;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Storage;
@@ -52,6 +53,16 @@ class AddUserController extends Controller
             ->paginate(5);
 
         return view('Admin.userManagement.index', compact('users'));
+    }
+
+    public function studentManagement()
+    {
+        $userStudent = User::select('id', 'hoTen', 'avatar', 'phanQuyen', 'trangThai', 'email', 'soDienThoai', 'gioiTinh', 'ngaySinh', 'diaChi')
+            ->where('phanQuyen', 0)
+            ->orderBy('id', 'desc')
+            ->paginate(5);
+
+        return view('Admin.userManagement.index3', compact('userStudent'));
     }
 
     public function userLecturers()
@@ -110,4 +121,32 @@ class AddUserController extends Controller
         return redirect()->back()->with('success', 'Xóa người dùng thành công');
 
     }
+
+    public function studentEdit($id)
+    {
+        $user = User::where('id', $id)->firstOrFail();
+
+        return view('Admin.userManagement.edit2', compact('user'));
+    }
+
+    public function studentDelete($id)
+    {
+        User::where('id', $id)->delete();
+
+        return redirect()->back()->with('success', 'Xóa người dùng thành công');
+    }
+
+    public function studentUpdate(Request $request, $id)
+    {
+        $user = User::find($id);
+        $data = [
+            'trangThai' => $request->trangThai,
+        ];
+
+        $user->update($data);
+
+        return redirect()->back()->with('success', 'Thêm người dùng thành công');
+
+    }
+
 }

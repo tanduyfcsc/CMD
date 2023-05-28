@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
         'cors' => \App\Http\Middleware\CorsMiddleware::class,
         'CheckUserRole' => \App\Http\Middleware\CheckUserRole::class,
         'evaluate' => \App\Http\Middleware\EvaluateMiddleware::class,
+        'studentManagement' => \App\Http\Middleware\StudentManagementMiddleware::class,
     ];
 }

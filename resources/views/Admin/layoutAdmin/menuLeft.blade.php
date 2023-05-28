@@ -46,6 +46,11 @@
                         <div>Quản lí giảng viên </div>
                     </a>
                 </li>
+                <li class="sidenav-item">
+                    <a href="{{ route('studentManagement') }}" class="sidenav-link">
+                        <div>Quản lí người dùng </div>
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="sidenav-divider mb-1"></li>
