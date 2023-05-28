@@ -177,6 +177,18 @@ class CategoryController extends Controller
 
     }
 
+    public function getCategoryCourse()
+    {
+
+        $getCategoryCourse = Category::with('course')
+            ->select('categories.*')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return response()->json(['data' => $getCategoryCourse]);
+
+    }
+
     public function getDetailCourse($id)
     {
 

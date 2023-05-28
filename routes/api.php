@@ -50,6 +50,8 @@ Route::middleware('cors')->group(function () {
 
     });
 
+    Route::get('get/category/course', [CategoryController::class, 'getCategoryCourse'])->name('getCategoryCourse');
+
     Route::get('invoice/{id}/export-pdf', [InvoiceController::class, 'exportPDF'])->name('exportPDF');
 
     Route::get('get/{id}/chapter', [ChapterController::class, 'getChapter'])->name('getChapter');

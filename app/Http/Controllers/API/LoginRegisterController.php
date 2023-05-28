@@ -8,7 +8,6 @@ use App\Repositories\ValidatorLoginList;
 use file;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
@@ -86,9 +85,9 @@ class LoginRegisterController extends Controller
             return response()->json(['error' => 'Thông tin đăng nhập sai!'], 422);
         }
 
-        $expiresAt = now()->addMinutes(1);
-        Cache::put('user-is-online' . Auth::user()->id, true, $expiresAt);
-        User::where('id', Auth::user()->id)->update(['last_seen' => now()]);
+        // $expiresAt = now()->addMinutes(1);
+        // Cache::put('user-is-online' . Auth::user()->id, true, $expiresAt);
+        // User::where('id', Auth::user()->id)->update(['last_seen' => now()]);
 
         return $this->createNewToken($token);
 

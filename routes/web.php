@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AddUserController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\OderController;
 use App\Http\Controllers\Admin\ResetsPasswordController;
+use App\Models\Category;
 use App\Models\MyCourse;
 use Illuminate\Support\Facades\Route;
 
@@ -89,3 +90,18 @@ Login Admin
  */
 Route::get('/login', [AdminLoginController::class, 'loginForm'])->name('admin-login');
 Route::post('/login', [AdminLoginController::class, 'login']);
+
+Route::get('test', function () {
+    $categories = Category::with('course')
+        ->select('categories.*')
+        ->orderBy('id', 'desc')
+        ->get();
+
+    return $categories;
+    // foreach ($category as $value) {
+    //     $courses = $value->course;
+    //     return $courses;
+
+    // }
+
+});
