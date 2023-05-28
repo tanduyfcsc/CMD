@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <div class="card d-flex w-100 mb-4">
                                 <div class="row no-gutters row-bordered row-border-light h-100">
                                     <div class="d-flex col-md-6 align-items-center">
@@ -81,22 +81,6 @@
                                                 </p>
                                                 </p>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex col-md-6 align-items-center">
-                                        <div class="card-body">
-                                            <div class="row align-items-center mb-3">
-                                                <div class="col-auto">
-                                                    <i class="lnr lnr-magic-wand text-primary display-4"></i>
-                                                </div>
-                                                <div class="col">
-                                                    <h6 class="mb-0 text-muted">Monthly <span
-                                                            class="text-primary">Earnings</span></h6>
-                                                    <h4 class="mt-3 mb-0">5963<i
-                                                            class="ion ion-md-arrow-round-up ml-3 text-success"></i></h4>
-                                                </div>
-                                            </div>
-                                            <p class="mb-0 text-muted">36% From Last 6 Months</p>
                                         </div>
                                     </div>
                                 </div>
