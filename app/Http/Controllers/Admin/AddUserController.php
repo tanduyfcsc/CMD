@@ -145,7 +145,7 @@ class AddUserController extends Controller
 
         $user->update($data);
 
-        return redirect()->back()->with('success', 'Thêm người dùng thành công');
+        return redirect()->back()->with('success', 'Cập nhật người dùng thành công');
 
     }
 

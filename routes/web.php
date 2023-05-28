@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\OderController;
 use App\Http\Controllers\Admin\ResetsPasswordController;
 use App\Models\Category;
 use App\Models\MyCourse;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,13 +25,23 @@ Admin Dashboard
  */
 Route::middleware('adminLogin')->group(function () {
     Route::get('dashboard', function () {
-
+        $currentMonthStart = Carbon::now()->startOfMonth();
+        $currentMonthEnd = Carbon::now()->endOfMonth();
         $courses = MyCourse::join('users', 'my_courses.giaoVienID', '=', 'users.id')
             ->leftJoin('bills', 'my_courses.id', '=', 'bills.my_course_id')
             ->where('bills.status', 2)
             ->select('my_courses.*', 'users.hoTen as name', 'users.email', 'users.avatar', 'users.id as idGiangVien', 'bills.my_course_id')
             ->get();
+
+        $myCourses = MyCourse::join('users', 'my_courses.giaoVienID', '=', 'users.id')
+            ->leftJoin('bills', 'my_courses.id', '=', 'bills.my_course_id')
+            ->where('bills.status', 2)
+            ->whereBetween('my_courses.ngayMua', [$currentMonthStart, $currentMonthEnd])
+            ->select('my_courses.*', 'users.hoTen as name', 'users.email', 'users.avatar', 'users.id as idGiangVien', 'bills.my_course_id')
+            ->get();
+
         $revenuesByTeacher = [];
+        $courseMyCourseTeacher = [];
 
         foreach ($courses as $course) {
             $teacherID = $course->giaoVienID;
@@ -45,11 +56,23 @@ Route::middleware('adminLogin')->group(function () {
             $revenuesByTeacher[$teacherID]['value'] += $course->giaCa;
         }
 
+        foreach ($myCourses as $myCourse) {
+            $teacherIDMyCourse = $myCourse->giaoVienID;
+            if (!isset($courseMyCourseTeacher[$teacherIDMyCourse])) {
+                $courseMyCourseTeacher[$teacherIDMyCourse] = [
+                    'name' => $myCourse->name,
+                    'value' => 0,
+                ];
+            }
+
+            $courseMyCourseTeacher[$teacherIDMyCourse]['value'] += $myCourse->giaCa;
+        }
+
         usort($revenuesByTeacher, function ($a, $b) {
             return $b['value'] - $a['value'];
         });
 
-        return view('Admin.dashboard.dashboardAdmin', compact('revenuesByTeacher'));
+        return view('Admin.dashboard.dashboardAdmin', compact('revenuesByTeacher', 'courseMyCourseTeacher'));
 
     })->name('admin-dashboard');
 
